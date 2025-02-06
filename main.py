@@ -3,6 +3,7 @@ from datetime import datetime
 import exifread
 
 def get_exif_capture_date(image_path):
+    """Retrieves the capture date of an image from its EXIF data."""
     try:
         with open(image_path, 'rb') as img_file:
             tags = exifread.process_file(img_file)
@@ -16,6 +17,7 @@ def get_exif_capture_date(image_path):
         return None
 
 def exif_date_to_timestamp(exif_date):
+    """Converts an EXIF date string to a Unix timestamp."""
     try:
         dt = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
         return dt.timestamp()
@@ -24,6 +26,7 @@ def exif_date_to_timestamp(exif_date):
         return None
 
 def set_file_creation_date(path, timestamp):
+    """Sets the creation date of a file to a Unix timestamp."""
     try:
         dt = datetime.fromtimestamp(timestamp)
         formatted_date = dt.strftime('%m/%d/%Y %H:%M:%S')
@@ -35,6 +38,7 @@ def set_file_creation_date(path, timestamp):
         print(f"Error formatting date for {path}: {e}")
 
 def update_image_creation_date(image_path):
+    """Updates the creation date of an image file based on its EXIF data."""
     exif_date = get_exif_capture_date(image_path)
     if exif_date:
         timestamp = exif_date_to_timestamp(exif_date)
