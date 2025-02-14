@@ -1,3 +1,5 @@
+""" This script updates the creation date of an image file based on its EXIF data. """
+
 import subprocess
 import os
 from datetime import datetime
